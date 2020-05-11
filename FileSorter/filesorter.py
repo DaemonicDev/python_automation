@@ -35,12 +35,12 @@ As such, the problem as of right now is of O(N^2) where N is the amount of filet
 
 def fileSorter(path, fileTypes, destFolders):
     #Current implementation O(N^2)
-    #Where N is the number of files for a given filetype
+    #Where N1 is the number of files for a given filetype
+    #N2 is the amount of filetypes provided by the user
+    
     #TODO Find a way to optimize this further.
 
     dest_index = -1
-
-    print(path)
 
     #print all the destination folders
     for i in range(len(destFolders)):
@@ -58,11 +58,11 @@ def fileSorter(path, fileTypes, destFolders):
 
         #Collect every file with the following extension
         files = glob.glob(os.path.join(path, '*' + fileTypes[file_type_index]))
-        print(files[0] + '\n')
+        print(files[0] + '\n') #Debug purposes, but I'm keeping this one here as I like the confirmation.
         for file in files:
             if os.path.isfile(file):
                 try:
-                    shutil.move2(file, tPath)
+                    shutil.move(file, tPath)
                 except IOError:
                     print("Failed to move files due to filetype not being in use.")
         print(f"\n\nCompleted moving {fileTypes[file_type_index]}")
@@ -88,16 +88,10 @@ def init():
     #If the folder is not found, it will be created inside the current path.
     dest_folders = [x.strip() for x in dest_folders.split(',')]
 
-    print("hello world")
-    print(dest_folders)
     # #Combine the path and destination for ease of use.
-
-    print(_filetypes)
-    print(m_path)
 
     for i in range(len(dest_folders)):
         dest_path = os.path.join(m_path + '\\' + dest_folders[i])
-        print(f"\n\n\nDEBUG MODE {dest_path}\n\n\n")
         if os.path.isdir(dest_path) == True:
             continue
         else:
@@ -108,5 +102,5 @@ def init():
 
 init()
 
-if __name__ == "main.py":
+if __name__ == '__main__':
     init()
